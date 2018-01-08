@@ -1,10 +1,10 @@
 package server
 
 import (
-	"testing"
-	"net/http"
 	"github.com/duck8823/sample-go-testing/server/mock_server"
 	"github.com/golang/mock/gomock"
+	"net/http"
+	"testing"
 )
 
 func Test_Hello(t *testing.T) {
