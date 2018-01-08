@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func Test_Hello(t *testing.T) {
+func Test_RoutingWithStartServer(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
