@@ -5,8 +5,13 @@ type Food interface {
 }
 
 type Apple struct {
+	name string
+}
+
+func NewApple(name string) *Apple {
+	return &Apple{name}
 }
 
 func (apple *Apple) Name() string {
-	return "apple"
+	return apple.name
 }
