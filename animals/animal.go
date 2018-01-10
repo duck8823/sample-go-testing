@@ -1,6 +1,9 @@
 package animals
 
-import "github.com/duck8823/sample-go-testing/foods"
+import (
+	"fmt"
+	"github.com/duck8823/sample-go-testing/foods"
+)
 
 type Animal interface {
 	Say() string
@@ -8,12 +11,13 @@ type Animal interface {
 }
 
 type Duck struct {
+	Name string
 }
 
 func (duck *Duck) Say() string {
-	return "hoge"
+	return fmt.Sprintf("%s says quack", duck.Name)
 }
 
 func (duck *Duck) Eat(food foods.Food) string {
-	return "duck ate " + food.Name()
+	return fmt.Sprintf("%s ate %s", duck.Name, food.Name)
 }
