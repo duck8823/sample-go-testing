@@ -37,7 +37,7 @@ func Test_RoutingWitHttpTest(t *testing.T) {
 	server := httptest.NewServer(s)
 	client := server.Client()
 
-	_, err := client.Get("http://localhost:1234/hello")
+	_, err := client.Get(server.URL + "/hello")
 	if err != nil {
 		t.Fatal(err)
 	}
