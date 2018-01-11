@@ -7,11 +7,11 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	println("setup...")
+	println("before all...")
 
 	code := m.Run()
 
-	println("teadown...")
+	println("after all...")
 
 	os.Exit(code)
 }

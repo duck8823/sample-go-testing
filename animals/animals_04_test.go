@@ -7,6 +7,7 @@ import (
 
 func TestDuck_04(t *testing.T) {
 
+	println("before all...")
 	var duck *animals.Duck
 
 	for _, testcase := range []struct {
@@ -33,12 +34,13 @@ func TestDuck_04(t *testing.T) {
 			},
 		},
 	} {
-		println("setup...")
+		println("before each...")
 		duck = &animals.Duck{"tarou"}
 
 		// テストケースの実行
 		t.Run(testcase.name, testcase.call)
 
-		println("teardown...")
+		println("after each...")
 	}
+	println("after all...")
 }
