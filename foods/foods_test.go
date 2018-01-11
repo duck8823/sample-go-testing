@@ -1,8 +1,8 @@
 package foods_test
 
 import (
-	"testing"
 	"github.com/duck8823/sample-go-testing/foods"
+	"testing"
 )
 
 func TestNewApple_Name(t *testing.T) {
