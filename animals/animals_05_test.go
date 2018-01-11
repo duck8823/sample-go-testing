@@ -3,11 +3,12 @@ package animals_test
 import (
 	"github.com/duck8823/sample-go-testing/animals"
 	"testing"
+	"time"
 )
 
 func TestDuck_05(t *testing.T) {
 	t.Run("it says quack", func(t *testing.T) {
-		duck := createInstance(t)
+		duck := createInstance()
 
 		actual := duck.Say()
 		expected := "tarou says quack"
@@ -17,7 +18,7 @@ func TestDuck_05(t *testing.T) {
 	})
 
 	t.Run("it is named tarou", func(t *testing.T) {
-		duck := createInstance(t)
+		duck := createInstance()
 
 		actual := duck.Name
 		expected := "tarou"
@@ -27,10 +28,9 @@ func TestDuck_05(t *testing.T) {
 	})
 }
 
-func createInstance(tb testing.TB) *animals.Duck {
-	tb.Helper()
-
+func createInstance() *animals.Duck {
 	duck := &animals.Duck{"tarou"}
+	time.Sleep(5 * time.Second)
 
 	return duck
 }
