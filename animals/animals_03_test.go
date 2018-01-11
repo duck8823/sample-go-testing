@@ -7,11 +7,11 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	setup()
+	println("setup...")
 
 	code := m.Run()
 
-	teardown()
+	println("teadown...")
 
 	os.Exit(code)
 }
@@ -23,12 +23,4 @@ func TestDuck_Say_03(t *testing.T) {
 	if actual != expected {
 		t.Errorf("got: %v\nwant: %v", actual, expected)
 	}
-}
-
-func setup() {
-	println("setup...")
-}
-
-func teardown() {
-	println("teadown...")
 }

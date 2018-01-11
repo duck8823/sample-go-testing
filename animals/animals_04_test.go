@@ -33,12 +33,12 @@ func TestDuck_04(t *testing.T) {
 			},
 		},
 	} {
-		// BeforeEach にあたる処理
+		println("setup...")
 		duck = &animals.Duck{"tarou"}
 
 		// テストケースの実行
 		t.Run(testcase.name, testcase.call)
 
-		// AfterEach にあたる処理
+		println("teardown...")
 	}
 }
