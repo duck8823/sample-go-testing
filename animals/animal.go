@@ -5,11 +5,6 @@ import (
 	"github.com/duck8823/sample-go-testing/foods"
 )
 
-type Animal interface {
-	Say() string
-	Eat(food foods.Food) string
-}
-
 type Duck struct {
 	Name string
 }
