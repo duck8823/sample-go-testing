@@ -3,7 +3,6 @@ package animals_test
 import (
 	"github.com/duck8823/sample-go-testing/animals"
 	"testing"
-	"time"
 )
 
 func TestDuck_05(t *testing.T) {
@@ -32,8 +31,6 @@ func createInstance(tb testing.TB) *animals.Duck {
 	tb.Helper()
 
 	duck := &animals.Duck{"tarou"}
-	time.Sleep(5 * time.Second)
-	tb.Error("前処理で失敗しました.")
 
 	return duck
 }
