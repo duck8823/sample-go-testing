@@ -19,5 +19,5 @@ func (duck *Duck) Say() string {
 }
 
 func (duck *Duck) Eat(food foods.Food) string {
-	return fmt.Sprintf("%s ate %s", duck.Name, food.Name)
+	return fmt.Sprintf("%s ate %s", duck.Name, food.Name())
 }
