@@ -1,10 +1,13 @@
 package animals_test
 
-import "testing"
-import "github.com/duck8823/sample-go-testing/animals"
+import (
+	"github.com/duck8823/sample-go-testing/animals"
+	"github.com/duck8823/sample-go-testing/foods"
+	"testing"
+)
 
 func TestDuck(t *testing.T) {
-	duck := &animals.Duck{"tarou"}
+	duck := animals.NewDuck("tarou")
 
 	t.Run("it says quack", func(t *testing.T) {
 		actual := duck.Say()
@@ -14,9 +17,11 @@ func TestDuck(t *testing.T) {
 		}
 	})
 
-	t.Run("it is named tarou", func(t *testing.T) {
-		actual := duck.Name
-		expected := "tarou"
+	t.Run("it ate apple", func(t *testing.T) {
+		apple := foods.NewApple("sunfuji")
+
+		actual := duck.Eat(apple)
+		expected := "tarou ate sunfuji"
 		if actual != expected {
 			t.Errorf("got: %v\nwant: %v", actual, expected)
 		}
