@@ -4,11 +4,12 @@ import (
 	"github.com/duck8823/sample-go-testing/animals"
 	"github.com/duck8823/sample-go-testing/foods"
 	"testing"
+	"time"
 )
 
 func TestDuck_05(t *testing.T) {
 	t.Run("it says quack", func(t *testing.T) {
-		duck := createInstance(t)
+		duck := createInstance()
 
 		actual := duck.Say()
 		expected := "tarou says quack"
@@ -18,7 +19,7 @@ func TestDuck_05(t *testing.T) {
 	})
 
 	t.Run("it ate apple", func(t *testing.T) {
-		duck := createInstance(t)
+		duck := createInstance()
 
 		apple := foods.NewApple("sunfuji")
 
@@ -30,10 +31,9 @@ func TestDuck_05(t *testing.T) {
 	})
 }
 
-func createInstance(tb testing.TB) *animals.Duck {
-	tb.Helper()
-
+func createInstance() *animals.Duck {
 	duck := animals.NewDuck("tarou")
+	time.Sleep(5 * time.Second)
 
 	return duck
 }
