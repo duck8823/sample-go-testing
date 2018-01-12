@@ -5,13 +5,13 @@ type Food interface {
 }
 
 type Apple struct {
-	name string
+	cultivar string
 }
 
-func NewApple(name string) *Apple {
-	return &Apple{name}
+func NewApple(cultivar string) *Apple {
+	return &Apple{cultivar}
 }
 
 func (apple *Apple) Name() string {
-	return apple.name
+	return apple.cultivar
 }
