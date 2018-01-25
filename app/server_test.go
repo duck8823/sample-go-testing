@@ -1,11 +1,11 @@
 package app
 
 import (
+	"io/ioutil"
 	"net"
 	"net/http"
-	"testing"
-	"io/ioutil"
 	"net/url"
+	"testing"
 )
 
 func Test_RoutingWithStartServer(t *testing.T) {
@@ -17,9 +17,9 @@ func Test_RoutingWithStartServer(t *testing.T) {
 	}()
 
 	reqUrl := &url.URL{
-		Scheme: "http",
-		Host:   addr.String(),
-		Path:	"hello",
+		Scheme:   "http",
+		Host:     addr.String(),
+		Path:     "hello",
 		RawQuery: "name=duck",
 	}
 	resp, err := http.Get(reqUrl.String())

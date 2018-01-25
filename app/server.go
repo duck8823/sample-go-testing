@@ -1,9 +1,9 @@
 package app
 
 import (
+	"fmt"
 	"github.com/labstack/echo"
 	"net/http"
-	"fmt"
 )
 
 func CreateServer() *echo.Echo {
