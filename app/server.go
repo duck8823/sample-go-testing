@@ -2,14 +2,17 @@ package app
 
 import (
 	"github.com/labstack/echo"
+	"net/http"
+	"fmt"
 )
 
-func Create(controller Controller) *echo.Echo {
+func CreateServer() *echo.Echo {
 	e := echo.New()
-	e.GET("/hello", controller.Get)
+	e.GET("/hello", hello)
 	return e
 }
 
-type Controller interface {
-	Get(c echo.Context) error
+func hello(c echo.Context) error {
+	message := fmt.Sprintf("Hello %s.", c.QueryParam("name"))
+	return c.String(http.StatusOK, message)
 }

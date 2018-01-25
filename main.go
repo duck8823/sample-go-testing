@@ -15,4 +15,7 @@ func main() {
 	duck := &animals.Duck{}
 	apple := &foods.Apple{}
 	println(duck.Eat(apple))
+
+	server := app.CreateServer()
+	server.Start(":8080")
 }
