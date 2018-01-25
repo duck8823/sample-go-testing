@@ -1,22 +1,28 @@
 package app
 
 import (
-	"fmt"
 	"net"
 	"net/http"
 	"testing"
 	"io/ioutil"
+	"net/url"
 )
 
 func Test_RoutingWithStartServer(t *testing.T) {
-	port := randomPort(t)
+	addr := randomAddress(t)
 
 	s := CreateServer()
 	go func() {
-		s.Start(port)
+		s.Start(addr.String())
 	}()
 
-	resp, err := http.Get(fmt.Sprintf("http://localhost%s/hello?name=duck", port))
+	reqUrl := &url.URL{
+		Scheme: "http",
+		Host:   addr.String(),
+		Path:	"hello",
+		RawQuery: "name=duck",
+	}
+	resp, err := http.Get(reqUrl.String())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -33,16 +39,14 @@ func Test_RoutingWithStartServer(t *testing.T) {
 	}
 }
 
-func randomPort(t *testing.T) string {
+func randomAddress(t *testing.T) net.Addr {
 	t.Helper()
 
-	listener, err := net.Listen("tcp", "127.0.0.1:0")
+	listener, err := net.Listen("tcp", ":0")
+	listener.Close()
+
 	if err != nil {
 		t.Fatal(err)
 	}
-	addr := listener.Addr().String()
-	_, port, err := net.SplitHostPort(addr)
-	listener.Close()
-
-	return fmt.Sprintf(":%s", port)
+	return listener.Addr()
 }
