@@ -1,25 +1,31 @@
 package app
 
 import (
-	"github.com/duck8823/sample-go-testing/app/mock_server"
-	"github.com/golang/mock/gomock"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
 )
 
 func Test_RoutingWitHttpTest(t *testing.T) {
-	ctrl := gomock.NewController(t)
-	defer ctrl.Finish()
-
-	mockController := mock_server.NewMockController(ctrl)
-	mockController.EXPECT().Get(gomock.Any()).Times(1)
-
-	s := Create(mockController)
+	s := CreateServer()
 	server := httptest.NewServer(s)
+	defer server.Close()
+
 	client := server.Client()
 
-	_, err := client.Get(server.URL + "/hello")
+	resp, err := client.Get(server.URL + "/hello?name=duck")
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	actual := string(body)
+	expected := "Hello duck."
+	if string(actual) != expected {
+		t.Errorf("got: %s\nwont: %s", actual, expected)
 	}
 }

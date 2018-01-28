@@ -7,14 +7,14 @@ import (
 	"testing"
 )
 
-func TestDuck_Eat(t *testing.T) {
+func TestDuck_Eat_02(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
 	food := mock_foods.NewMockFood(ctrl)
 	food.EXPECT().Name().Return("kougyoku")
 
-	duck := animals.Duck{"tarou"}
+	duck := animals.NewDuck("tarou")
 	actual := duck.Eat(food)
 	expected := "tarou ate kougyoku"
 	if actual != expected {

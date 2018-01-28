@@ -2,6 +2,7 @@ package animals_test
 
 import (
 	"github.com/duck8823/sample-go-testing/animals"
+	"github.com/duck8823/sample-go-testing/foods"
 	"testing"
 	"time"
 )
@@ -17,11 +18,13 @@ func TestDuck_05(t *testing.T) {
 		}
 	})
 
-	t.Run("it is named tarou", func(t *testing.T) {
+	t.Run("it ate apple", func(t *testing.T) {
 		duck := createInstance()
 
-		actual := duck.Name
-		expected := "tarou"
+		apple := foods.NewApple("sunfuji")
+
+		actual := duck.Eat(apple)
+		expected := "tarou ate sunfuji"
 		if actual != expected {
 			t.Errorf("got: %v\nwant: %v", actual, expected)
 		}
@@ -29,7 +32,7 @@ func TestDuck_05(t *testing.T) {
 }
 
 func createInstance() *animals.Duck {
-	duck := &animals.Duck{"tarou"}
+	duck := animals.NewDuck("tarou")
 	time.Sleep(5 * time.Second)
 
 	return duck

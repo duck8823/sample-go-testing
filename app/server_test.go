@@ -1,44 +1,52 @@
 package app
 
 import (
-	"fmt"
-	"github.com/duck8823/sample-go-testing/app/mock_server"
-	"github.com/golang/mock/gomock"
+	"io/ioutil"
 	"net"
 	"net/http"
+	"net/url"
 	"testing"
 )
 
 func Test_RoutingWithStartServer(t *testing.T) {
-	port := randomPort(t)
+	addr := randomAddress(t)
 
-	ctrl := gomock.NewController(t)
-	defer ctrl.Finish()
-
-	mockController := mock_server.NewMockController(ctrl)
-	mockController.EXPECT().Get(gomock.Any()).Times(1)
-
-	s := Create(mockController)
+	s := CreateServer()
 	go func() {
-		s.Start(port)
+		s.Start(addr.String())
 	}()
 
-	_, err := http.Get(fmt.Sprintf("http://localhost%s/hello", port))
+	reqUrl := &url.URL{
+		Scheme:   "http",
+		Host:     addr.String(),
+		Path:     "hello",
+		RawQuery: "name=duck",
+	}
+	resp, err := http.Get(reqUrl.String())
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	actual := string(body)
+	expected := "Hello duck."
+	if actual != expected {
+		t.Errorf("got: %s\nwont: %s", actual, expected)
 	}
 }
 
-func randomPort(t *testing.T) string {
+func randomAddress(t *testing.T) net.Addr {
 	t.Helper()
 
-	listener, err := net.Listen("tcp", "127.0.0.1:0")
+	listener, err := net.Listen("tcp", ":0")
+	listener.Close()
+
 	if err != nil {
 		t.Fatal(err)
 	}
-	addr := listener.Addr().String()
-	_, port, err := net.SplitHostPort(addr)
-	listener.Close()
-
-	return fmt.Sprintf(":%s", port)
+	return listener.Addr()
 }

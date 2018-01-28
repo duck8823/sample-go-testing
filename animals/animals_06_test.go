@@ -7,7 +7,7 @@ import (
 )
 
 func BenchmarkDuck_Say(b *testing.B) {
-	duck := animals.Duck{"tarou"}
+	duck := animals.NewDuck("tarou")
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -17,7 +17,7 @@ func BenchmarkDuck_Say(b *testing.B) {
 }
 
 func BenchmarkDuck_Eat(b *testing.B) {
-	duck := animals.Duck{"tarou"}
+	duck := animals.NewDuck("tarou")
 	food := foods.NewApple("sunfuji")
 
 	b.ResetTimer()
